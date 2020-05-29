@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>FH Admin</title>
+    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    <!-- Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="author" content="FH Admin QQ313596790" />
+
+    <link rel="icon" href="../../../assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../../../assets/fonts/material/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../../assets/fonts/fontawesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../../../assets/plugins/animation/css/animate.min.css">
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+
+    <!-- vue -->
+    <script src="../../../assets/js-vue/vue.js"></script>
+    <!--全局配置-->
+    <script src="../../../assets/js-v/config.js"></script>
+	<style>
+		tr:nth-child(odd){
+			height: 26px;
+			color: #000000;
+			font-weight: bold;
+		}
+	</style>
+</head>
+
+<body>
+    
+    <!-- [加载状态 ] start -->
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <!-- [ 加载状态  ] End -->
+
+    <!-- [ 主内容区 ] start -->
+        <div class="pcoded-wrapper" id="app">
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <!-- [ Main Content ] start -->
+                            <div class="row">
+
+                                <!-- [ Hover-table ] start -->
+                                <div class="col-xl-12">
+                                    <div class="card">
+                            			<div style="padding:15px;">
+                            				<table>
+                            					<tbody>
+                            						<tr>
+                            							<td>生日</td> 
+                            						</tr>
+                            						<tr>
+                            							<td>{{birthday}}</td>
+                            						</tr>
+                            						<tr style="height: 26px;">
+                            							<td>身份证号</td> 
+                            						</tr>
+                            						<tr>
+                            							<td>{{idcard}}</td>
+                            						</tr>
+                            						<tr style="height: 26px;">
+                            							<td>家庭住址</td> 
+                            						</tr>
+                            						<tr>
+                            							<td>{{homeaddress}}</td>
+                            						</tr>
+                            						<tr style="height: 26px;">
+                            							<td>既往病史</td> 
+                            						</tr>
+                            						<tr>
+                            							<td>{{history}}</td>
+                            						</tr>
+                            						<tr style="height: 26px;">
+                            							<td>绑定设备号</td> 
+                            						</tr>
+                            						<tr>
+                            							<td>{{imei}}</td>
+                            						</tr>
+                            					</tbody>
+                            				</table>
+                            			</div>
+                                    </div>
+                                </div>
+                                <!-- [ Hover-table ] end -->
+
+                            </div>
+                            <!-- [ Main Content ] end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- [ 主内容区 ] end -->
+    
+<script type="text/javascript" src="../../../assets/js/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="../../../assets/js/pre-loader.js"></script>
+<script src="../../../assets/plugins/sweetalert/js/sweetalert.min.js"></script>
+<!-- 表单验证提示 -->
+<script src="../../../assets/js/jquery.tips.js"></script>
+
+<script type="text/javascript">
+var that;
+var vm = new Vue({
+    el: '#app',
+    
+    data:{
+        history:'',
+        idcard:'',
+        birthday:'',
+        homeaddress:'',
+        imei:''
+    },
+    
+    methods: {
+        //初始执行
+        init() {
+            this.history = this.getUrlKey("history")
+            this.idcard = this.getUrlKey("idcard")
+            this.birthday = this.getUrlKey("birthday")
+            this.homeaddress = this.getUrlKey("homeaddress")
+            this.imei = this.getUrlKey("imei")
+        },
+        //根据url参数名称获取参数值
+        getUrlKey: function (name) {
+            return decodeURIComponent(
+                (new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ""])[1].replace(/\+/g, '%20')) || null;
+        }
+        
+       
+    },
+    
+    mounted(){
+        this.init();
+    }
+})
+        
+</script>
+
+</body>
+</html>
