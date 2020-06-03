@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>家庭智慧医疗系统</title>
+    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    <!-- Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="author" content="家庭智慧医疗系统" />
+
+    <link rel="icon" href="../../../assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../../../assets/fonts/material/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../../assets/fonts/fontawesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../../../assets/plugins/animation/css/animate.min.css">
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    
+    <!-- 日期插件 -->
+    <link rel="stylesheet" href="../../../assets/plugins/material-datetimepicker/css/bootstrap-material-datetimepicker.css">
+
+    <!-- vue -->
+    <script src="../../../assets/js-vue/vue.js"></script>
+    <!--全局配置-->
+    <script src="../../../assets/js-v/config.js"></script>
+
+	<style>
+		.date_box{
+			margin-top: 20px;
+			margin-left: 20px;
+		}
+		.date_box i{
+			font-size: 36px;
+			float: left;
+		}
+		.date_box input{
+			width: 150px;
+			float: left;
+		}
+		.none{
+			font-size: 24px;
+			height: 500px;
+			text-align: center;
+			padding-top: 150px;
+		}
+		.box{
+			display: flex;
+			margin: 15px;
+		}
+		.card{
+			height: 500;
+		}
+		.light{
+			height: 100px;
+			width: 50px;
+			background:#9073EA ;
+			position: relative;
+		}
+		.light p,.deep p{
+			position: absolute;
+			bottom: -35px;
+		}
+		.deep{
+			height: 100px;
+			width: 80px;
+			background: #6B4BE0;
+			position: relative;
+		}
+		.loader{
+            border:16px solid #f3f3f3;
+            border-color:#00ffff #00ccff #0099ff #0066ff;
+            border-radius: 50%;
+            width:100px;
+            height:100px;
+            animation:load 2s linear infinite;
+            position: fixed;
+		    left: 43%;
+		    top: 43%;
+		    z-index: 999;
+        }
+        @keyframes load{
+            0%{
+                transform:rotate(0deg);
+            }
+            100%{
+                transform:rotate(360deg);
+            }
+        }
+	</style>
+</head>
+
+<body>
+    
+    <!-- [加载状态 ] start -->
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <!-- [ 加载状态  ] End -->
+
+    <!-- [ 主内容区 ] start -->
+        <div class="pcoded-wrapper" id="app">
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <!-- [ Main Content ] start -->
+                            <div class="row">
+
+                                <!-- [ Hover-table ] start -->
+                                <div class="col-xl-12">
+                                    <div class="card" style="margin-bottom: 5px;">
+                                    	<div v-show="loading" class='loader'></div>
+                                    	<div class="date_box"><i class="feather icon-calendar"></i><input type="text" class="form-control date" id="date" ref="date" placeholder="请选择日期" title="请选择日期"></div>
+                                    	<div v-if="varList.length==0&&loading==false" class="none">暂无数据</div>
+                                    	<div v-show="varList.length!=0">
+                                    		<h3 style="text-align: center;margin-top: 20px;">睡眠状况</h3>
+                                    		<div class="box">
+	                                    			<div v-for="(data,index) in varList" :class="index%2==0?'light':'deep'" :style="{width:data.length}">
+	                                    				<p>{{data.time}}</p>
+	                                    			</div>
+	                                    	</div>
+	                                    	<div style="font-size: 20px;text-align: center;margin-top: 20px;">{{totalTime}} </div>
+	                                    	<div id="main" style="width: 560px;height:250px;"></div>
+	                                    	<div style="margin-top: 10px;display: flex;justify-content: center;margin-bottom: 15px;">
+	                                    		<div style="width: 33%;text-align: center;">深睡:{{deepTime}} {{deepPercent}}%</div>
+	                                    		<div style="width: 33%;text-align: center;">浅睡:{{lightTime}} {{lightPercent}}%</div>
+	                                    	</div>
+                                    	</div>
+                                    	
+                                    </div>
+                                </div>
+                                <!-- [ Hover-table ] end -->
+                            </div>
+                            <!-- [ Main Content ] end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- [ 主内容区 ] end -->
+    
+<script type="text/javascript" src="../../../assets/js/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="../../../assets/js/pre-loader.js"></script>
+<script src="../../../assets/plugins/sweetalert/js/sweetalert.min.js"></script>
+<!-- 日期插件 -->
+<script src="../../../assets/js/pages/moment-with-locales.min.js"></script>
+<script src="../../../assets/plugins/material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+<script src="../../../assets/js/pages/form-picker-custom.js"></script>
+<!-- 表单验证提示 -->
+<script src="../../../assets/js/jquery.tips.js"></script>
+<!--echarts-->
+<script src="../../../assets/plugins/echarts/js/echarts.min.js"></script>
+<script type="text/javascript">
+var that;
+var vm = new Vue({
+    el: '#app',
+    
+    data:{
+        varList:[],
+        imei:'',
+        totalTime:'',
+        lightTime:'',
+        deepTime:'',
+        lightPercent:'',
+        deepPercent:'',
+        loading:true
+    },
+    methods: {
+        //初始执行
+        init() {
+        	that = this;
+            this.imei = this.getUrlKey("imei")
+            var nowDate = new Date();
+             nowDate.setTime(nowDate.getTime()-24*60*60*1000);
+			 var year = nowDate.getFullYear();
+			 var month = nowDate.getMonth() + 1 < 10 ? "0" + (nowDate.getMonth() + 1)
+			  : nowDate.getMonth() + 1;
+			 var day = nowDate.getDate() < 10 ? "0" + nowDate.getDate() : nowDate
+			  .getDate();
+			 var dateStr = year + "-" + month + "-" + day;
+			$(".date").val(dateStr)
+			$('.date').bootstrapMaterialDatePicker({
+		        weekStart: 0,
+		        time: false
+		   }).on('change', function(e, date) {
+		   		that.varList=[]
+		   		that.loading=true
+		        that.getData($(".date").val());
+		    });
+            this.getData(dateStr);
+        },
+        getData:function(date){
+        	$.ajax({
+				xhrFields: {
+                    withCredentials: true
+                },
+				type: "POST",
+				contentType:'application/json',
+				url: httpurl+'data/getSleep?tm='+new Date().getTime(),
+		    	data:JSON.stringify({
+		    		imei:that.imei,
+		    		startTime:date
+		    	}),
+				dataType:'json',
+				success: function(data){
+					//总长450px
+					if(data.timePeriod.length!=0){
+						vm.varList = data.timePeriod
+						var total = data.deepSleepTotalTimeLength+data.lightSleepTotalTimeLength;	
+						vm.totalTime = vm.ChangeHourMinutestr(total);
+						vm.lightTime = vm.ChangeHourMinutestr(data.lightSleepTotalTimeLength);
+						vm.deepTime = vm.ChangeHourMinutestr(data.deepSleepTotalTimeLength);
+						vm.lightPercent = Math.round(data.lightSleepTotalTimeLength*100/total)
+						vm.deepPercent = Math.round(data.deepSleepTotalTimeLength*100/total)
+						for(var i=0;i<data.timePeriod.length;i++){
+							vm.varList[i].time=vm.varList[i].sleepPeriod.substring(11,16);
+							vm.varList[i].length = vm.varList[i].timeLength*100/total +"%";
+						}
+						vm.setPie(data.deepSleepTotalTimeLength,data.lightSleepTotalTimeLength)
+					}
+					that.loading=false
+
+				}
+			});
+        },
+        setPie:function(data1,data2){
+        	// 基于准备好的dom，初始化echarts实例
+	        var myChart = echarts.init(document.getElementById('main'));
+			var option = {
+				tooltip: {
+			        trigger: 'item',
+			        formatter: '<br/>{b}: {c}分钟 ({d}%)'
+			    },
+	            series: [{
+			        type: 'pie',
+			        radius: '50%',
+			        center: ['50%', '50%'],
+			        data: [{
+				        	name:"深度睡眠",
+				        	value:data1
+				        },{
+				        	name:"浅度睡眠",
+				        	value:data2
+				        },
+			        ],
+			        animation: true
+			    }]
+	        }
+	        myChart.setOption(option)
+        },
+        ChangeHourMinutestr:function(str) {
+			if (str !== "0" && str !== "" && str !== null) {
+				return ((Math.floor(str / 60)).toString().length < 2 ? "0" + (Math.floor(str / 60)).toString() : 
+				(Math.floor(str / 60)).toString()) + "时" + ((str % 60).toString().length < 2 ? "0" + (str % 60).toString() : (str % 60).toString())+"分";
+			}
+			else
+			{
+				return "";
+			}
+		},
+        //根据url参数名称获取参数值
+        getUrlKey: function (name) {
+            return decodeURIComponent(
+                (new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ""])[1].replace(/\+/g, '%20')) || null;
+        }
+    },
+    
+    mounted(){
+        this.init();
+    }
+})
+        
+</script>
+    
+</body>
+</html>

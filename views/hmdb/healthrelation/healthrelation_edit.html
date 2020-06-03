@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>家庭智慧医疗系统</title>
+    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+    <!-- Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="author" content="家庭智慧医疗系统" />
+
+    <link rel="icon" href="../../../assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../../../assets/fonts/fontawesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../../../assets/plugins/animation/css/animate.min.css">
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    
+    <!-- 日期插件 -->
+    <link rel="stylesheet" href="../../../assets/plugins/material-datetimepicker/css/bootstrap-material-datetimepicker.css">
+    
+    <!-- select插件 -->
+    <link rel="stylesheet" href="../../../assets/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="../../../assets/plugins/multi-select/css/multi-select.css">
+    
+    <!-- vue -->
+	<script src="../../../assets/js-vue/vue.js"></script>
+    <!--全局配置-->
+    <script src="../../../assets/js-v/config.js"></script>
+
+</head>
+
+<body style="background-color: white">
+    
+    <!-- [加载状态 ] start -->
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <!-- [ 加载状态  ] End -->
+
+    <!-- [ 主内容区 ] start -->
+        <div class="pcoded-wrapper" id="app">
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <!-- [ Main Content ] start -->
+                            <div class="row">
+					
+								<div style="width: 100%;">
+									<div id="showform">
+														            <div class="input-group input-group-sm mb-3" style="margin-top: -10px;">
+		                                    <div class="input-group-prepend">
+		                                        <span class="input-group-text" style="width: 79px;"><span style="width: 100%;">用户ID</span></span>
+		                                    </div>
+		                                    <input type="text" class="form-control" ref="PATIENT_ID" id="PATIENT_ID" v-model="pd.PATIENT_ID" maxlength="100" placeholder="这里输入用户ID" title="用户ID">
+		                                </div>
+							            <div class="input-group input-group-sm mb-3" style="margin-top: -10px;">
+		                                    <div class="input-group-prepend">
+		                                        <span class="input-group-text" style="width: 79px;"><span style="width: 100%;">关注的设备</span></span>
+		                                    </div>
+		                                    <input type="text" class="form-control" ref="FOLLOW_IMEI" id="FOLLOW_IMEI" v-model="pd.FOLLOW_IMEI" maxlength="100" placeholder="这里输入关注的设备" title="关注的设备">
+		                                </div>
+							            <div class="input-group input-group-sm mb-3" style="margin-top: -10px;">
+		                                    <div class="input-group-prepend">
+		                                        <span class="input-group-text" style="width: 79px;"><span style="width: 100%;">同意状态（待处理、已同意、已拒绝）</span></span>
+		                                    </div>
+		                                    <input type="text" class="form-control" ref="AGREEMENT_STATE" id="AGREEMENT_STATE" v-model="pd.AGREEMENT_STATE" maxlength="255" placeholder="这里输入同意状态（待处理、已同意、已拒绝）" title="同意状态（待处理、已同意、已拒绝）">
+		                                </div>
+							            <div class="input-group input-group-sm mb-3" style="margin-top: -10px;">
+		                                    <div class="input-group-prepend">
+		                                        <span class="input-group-text" style="width: 79px;"><span style="width: 100%;">创建时间</span></span>
+		                                    </div>
+		                                    <input type="text" class="form-control" ref="CREATE_TIME" id="CREATE_TIME" v-model="pd.CREATE_TIME" maxlength="32" placeholder="这里输入创建时间" title="创建时间">
+		                                </div>
+							            <div class="input-group input-group-sm mb-3" style="margin-top: -10px;">
+		                                    <div class="input-group-prepend">
+		                                        <span class="input-group-text" style="width: 79px;"><span style="width: 100%;">更新时间</span></span>
+		                                    </div>
+		                                    <input type="text" class="form-control" ref="UPDATE_TIME" id="UPDATE_TIME" v-model="pd.UPDATE_TIME" maxlength="32" placeholder="这里输入更新时间" title="更新时间">
+		                                </div>
+							            <div class="input-group input-group-sm mb-3" style="margin-top: -10px;">
+		                                    <div class="input-group-prepend">
+		                                        <span class="input-group-text" style="width: 79px;"><span style="width: 100%;">姓名</span></span>
+		                                    </div>
+		                                    <input type="text" class="form-control" ref="NAME" id="NAME" v-model="pd.NAME" maxlength="32" placeholder="这里输入姓名" title="姓名">
+		                                </div>
+							            <div class="input-group input-group-sm mb-3" style="margin-top: -10px;">
+		                                    <div class="input-group-prepend">
+		                                        <span class="input-group-text" style="width: 79px;"><span style="width: 100%;">关注人姓名</span></span>
+		                                    </div>
+		                                    <input type="text" class="form-control" ref="FOLLOW_NAME" id="FOLLOW_NAME" v-model="pd.FOLLOW_NAME" maxlength="32" placeholder="这里输入关注人姓名" title="关注人姓名">
+		                                </div>
+							            <div class="input-group" style="margin-top:10px;background-color: white" >
+							            	<span style="width: 100%;text-align: center;">
+							            		<a class="btn btn-light btn-sm" v-on:click="save">保存</a>
+							            		<a class="btn btn-light btn-sm" onclick="top.Dialog.close()">取消</a>
+							            	</span>
+							            </div>
+							       </div>
+						           <!-- [加载状态 ] start -->
+								    <div id="jiazai" style="display:none;margin-top:50px;">
+								    	<div class="d-flex justify-content-center">
+	                                        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+								    <!-- [ 加载状态  ] End -->
+								</div>
+	    
+                            </div>
+                            <!-- [ Main Content ] end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- [ 主内容区 ] end -->
+    
+<script type="text/javascript" src="../../../assets/js/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="../../../assets/js/pre-loader.js"></script>
+<script src="../../../assets/plugins/sweetalert/js/sweetalert.min.js"></script>
+
+<!-- 日期插件 -->
+<script src="../../../assets/js/pages/moment-with-locales.min.js"></script>
+<script src="../../../assets/plugins/material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+<script src="../../../assets/js/pages/form-picker-custom.js"></script>
+
+<!-- select插件 -->
+<script src="../../../assets/plugins/select2/js/select2.full.min.js"></script>
+<script src="../../../assets/plugins/multi-select/js/jquery.quicksearch.js"></script>
+<script src="../../../assets/plugins/multi-select/js/jquery.multi-select.js"></script>
+<script src="../../../assets/js/pages/form-select-custom.js"></script>
+
+<!-- 表单验证提示 -->
+<script src="../../../assets/js/jquery.tips.js"></script>
+
+<script type="text/javascript">
+
+var vm = new Vue({
+	el: '#app',
+	
+	data:{
+		HEALTHRELATION_ID: '',	//主键ID
+		pd: [],						//存放字段参数
+		msg:'add'
+    },
+	
+	methods: {
+		
+        //初始执行
+        init() {
+        	var FID = this.getUrlKey('FID');	//当接收过来的FID不为null时,表示此页面是修改进来的
+        	if(null != FID){
+        		this.msg = 'edit';
+        		this.HEALTHRELATION_ID = FID;
+        		this.getData();
+        	}
+        	setTimeout(function(){
+        		vm.getDict();
+            },200);
+        },
+        
+        //去保存
+    	save: function (){
+    		
+			if(this.pd.PATIENT_ID == '' || this.pd.PATIENT_ID == undefined){
+				$("#PATIENT_ID").tips({
+					side:3,
+		            msg:'请输入用户ID',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				this.pd.PATIENT_ID = '';
+				this.$refs.PATIENT_ID.focus();
+			return false;
+			}
+			if(this.pd.FOLLOW_IMEI == '' || this.pd.FOLLOW_IMEI == undefined){
+				$("#FOLLOW_IMEI").tips({
+					side:3,
+		            msg:'请输入关注的设备',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				this.pd.FOLLOW_IMEI = '';
+				this.$refs.FOLLOW_IMEI.focus();
+			return false;
+			}
+			if(this.pd.AGREEMENT_STATE == '' || this.pd.AGREEMENT_STATE == undefined){
+				$("#AGREEMENT_STATE").tips({
+					side:3,
+		            msg:'请输入同意状态（待处理、已同意、已拒绝）',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				this.pd.AGREEMENT_STATE = '';
+				this.$refs.AGREEMENT_STATE.focus();
+			return false;
+			}
+			if(this.pd.CREATE_TIME == '' || this.pd.CREATE_TIME == undefined){
+				$("#CREATE_TIME").tips({
+					side:3,
+		            msg:'请输入创建时间',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				this.pd.CREATE_TIME = '';
+				this.$refs.CREATE_TIME.focus();
+			return false;
+			}
+			if(this.pd.UPDATE_TIME == '' || this.pd.UPDATE_TIME == undefined){
+				$("#UPDATE_TIME").tips({
+					side:3,
+		            msg:'请输入更新时间',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				this.pd.UPDATE_TIME = '';
+				this.$refs.UPDATE_TIME.focus();
+			return false;
+			}
+			if(this.pd.NAME == '' || this.pd.NAME == undefined){
+				$("#NAME").tips({
+					side:3,
+		            msg:'请输入姓名',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				this.pd.NAME = '';
+				this.$refs.NAME.focus();
+			return false;
+			}
+			if(this.pd.FOLLOW_NAME == '' || this.pd.FOLLOW_NAME == undefined){
+				$("#FOLLOW_NAME").tips({
+					side:3,
+		            msg:'请输入关注人姓名',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				this.pd.FOLLOW_NAME = '';
+				this.$refs.FOLLOW_NAME.focus();
+			return false;
+			}
+    		
+    		$("#showform").hide();
+    		$("#jiazai").show();
+    		
+            //发送 post 请求提交保存
+            $.ajax({
+	            	xhrFields: {
+	                    withCredentials: true
+	                },
+					type: "POST",
+					url: httpurl+'healthrelation/'+this.msg,
+			    	data: {HEALTHRELATION_ID:this.HEALTHRELATION_ID,
+				    PATIENT_ID:this.pd.PATIENT_ID,
+				    FOLLOW_IMEI:this.pd.FOLLOW_IMEI,
+				    AGREEMENT_STATE:this.pd.AGREEMENT_STATE,
+				    CREATE_TIME:this.pd.CREATE_TIME,
+				    UPDATE_TIME:this.pd.UPDATE_TIME,
+				    NAME:this.pd.NAME,
+				    FOLLOW_NAME:this.pd.FOLLOW_NAME,
+			    	tm:new Date().getTime()},
+					dataType:"json",
+					success: function(data){
+                        if("success" == data.result){
+                        	swal("", "保存成功", "success");
+                        	setTimeout(function(){
+                        		top.Dialog.close();//关闭弹窗
+                            },1000);
+                        }else if ("exception" == data.result){
+                        	showException("健康关联",data.exception);//显示异常
+                        	$("#showform").show();
+                    		$("#jiazai").hide();
+                        }
+                    }
+				}).done().fail(function(){
+                   swal("登录失效!", "请求服务器无响应，稍后再试", "warning");
+                   $("#showform").show();
+           		   $("#jiazai").hide();
+                });
+    	},
+    	
+    	//根据主键ID获取数据
+    	getData: function(){
+    		//发送 post 请求
+            $.ajax({
+            	xhrFields: {
+                    withCredentials: true
+                },
+				type: "POST",
+				url: httpurl+'healthrelation/goEdit',
+		    	data: {HEALTHRELATION_ID:this.HEALTHRELATION_ID,tm:new Date().getTime()},
+				dataType:"json",
+				success: function(data){
+                     if("success" == data.result){
+                     	vm.pd = data.pd;							//参数map
+                     }else if ("exception" == data.result){
+                     	showException("健康关联",data.exception);	//显示异常
+                     	$("#showform").show();
+                 		$("#jiazai").hide();
+                     }
+                  }
+			}).done().fail(function(){
+                  swal("登录失效!", "请求服务器无响应，稍后再试", "warning");
+                  $("#showform").show();
+          		  $("#jiazai").hide();
+               });
+    	},
+    	
+    	//获取数据字典数据
+		getDict: function (){
+		},
+    	
+    	//根据url参数名称获取参数值
+        getUrlKey: function (name) {
+            return decodeURIComponent(
+                (new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ""])[1].replace(/\+/g, '%20')) || null;
+        }
+        
+	},
+	
+	mounted(){
+        this.init();
+    }
+})
+				
+</script>
+
+</body>
+</html>

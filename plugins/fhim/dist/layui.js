@@ -1,5 +1,5 @@
 /*
- * 后端java FH Admin 即时通讯系统(UI-LayIM) 
+ * 后端java 家庭智慧医疗系统 即时通讯系统(UI-LayIM) 
  */
 ; !
 function(e) {

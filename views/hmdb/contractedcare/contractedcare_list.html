@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>FH Admin</title>
+    <title>家庭智慧医疗系统</title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 10]>
@@ -12,7 +12,7 @@
     <!-- Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="author" content="FH Admin QQ313596790" />
+    <meta name="author" content="家庭智慧医疗系统" />
 
     <link rel="icon" href="../../../assets/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../../../assets/fonts/material/css/materialdesignicons.min.css">
@@ -83,12 +83,6 @@
                                         	<table class="table table-hover">
 												<thead>
 													<tr>
-														<th style="width: 50px;" id="cts">
-								                            <div class="checkbox d-inline">
-	                                                            <input type="checkbox" name="fhcheckbox" id="zcheckbox">
-	                                                            <label  style="max-height: 12px;" for="zcheckbox" class="cr"></label>
-	                                                        </div>
-														</th>
 														<th style="width:50px;">NO</th>
 														<th>姓名</th>
 														<th>性别</th>
@@ -105,12 +99,6 @@
 													<!-- 开始循环 -->	
 													<template v-for="(data,index) in varList">
 														<tr>
-															<td>
-	                                                        	<div class="checkbox d-inline">
-	                                                            	<input type="checkbox" v-bind:id="'zcheckbox'+index" name='ids' v-bind:value="data.CONTRACTEDCARE_ID">
-	                                                            	<label  style="max-height: 12px;" v-bind:for="'zcheckbox'+index" class="cr"></label>
-	                                                        	</div>
-															</td>
 															<td scope="row">{{page.showCount*(page.currentPage-1)+index+1}}</td>
 															<td>{{data.userName}}</td>
 															<td>{{data.SEX}}</td>
@@ -126,6 +114,11 @@
 														<td colspan="10">没有相关数据</td>
 													</tr>
 												</tbody>
+											</table>
+											<table style="width:100%;margin-top:15px;">
+												<tr>
+													<td style="vertical-align:top;"><div style="float: right;padding-top: 0px;margin-top: 0px;" v-html="page.pageStr"></div></td>
+												</tr>
 											</table>
 										</div>
                                     </div>
@@ -185,7 +178,7 @@ var vm = new Vue({
         goSeeDetail:function(id){
         	var diag = new top.Dialog();
     		 diag.Drag=true;
-    		 diag.Title ="编辑";
+    		 diag.Title ="医护详情";
     		 diag.URL = '../../hmdb/contractedcare/medicalstaff_detail.html?FID='+id;
     		 var height;
     		 diag.Width = 600;

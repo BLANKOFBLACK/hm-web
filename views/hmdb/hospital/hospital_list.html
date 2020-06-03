@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>FH Admin</title>
+    <title>家庭智慧医疗系统</title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 10]>
@@ -12,7 +12,7 @@
     <!-- Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="author" content="FH Admin QQ313596790" />
+    <meta name="author" content="家庭智慧医疗系统" />
 
     <link rel="icon" href="../../../assets/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../../../assets/fonts/material/css/materialdesignicons.min.css">
@@ -288,6 +288,8 @@ var vm = new Vue({
             			success: function(data){
             				 if("success" == data.result){
             					 swal("删除成功", "已经从列表中删除!", "success");
+            				 }else{
+            				 	swal("删除失败","请检查该医院是否已被医护人员使用","error");
             				 }
             				 vm.getList();
             			}
@@ -336,7 +338,9 @@ var vm = new Vue({
     							success: function(data){
     								if("success" == data.result){
     									swal("删除成功", "已经从列表中删除!", "success");
-    		        				 }
+    		        				 }else{
+		            				 	swal("删除失败","请检查所选医院是否已被医护人员使用","error");
+		            				 }
     								vm.getList();
     							}
     						});

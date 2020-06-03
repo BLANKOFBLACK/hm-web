@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>FH Admin</title>
+    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+    <!-- Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="author" content="FH Admin QQ313596790" />
+
+    <link rel="icon" href="../../../assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../../../assets/fonts/fontawesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../../../assets/plugins/animation/css/animate.min.css">
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+    
+    <!-- 日期插件 -->
+    <link rel="stylesheet" href="../../../assets/plugins/material-datetimepicker/css/bootstrap-material-datetimepicker.css">
+    
+    <!-- select插件 -->
+    <link rel="stylesheet" href="../../../assets/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="../../../assets/plugins/multi-select/css/multi-select.css">
+    
+    <!-- vue -->
+	<script src="../../../assets/js-vue/vue.js"></script>
+    <!--全局配置-->
+    <script src="../../../assets/js-v/config.js"></script>
+	<style>
+		.default_img{
+			width: 300px;
+			margin: 10px auto;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body style="background-color: white">
+    
+    <!-- [加载状态 ] start -->
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <!-- [ 加载状态  ] End -->
+
+    <!-- [ 主内容区 ] start -->
+        <div class="pcoded-wrapper" id="app">
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <!-- [ Main Content ] start -->
+                            <div class="row">
+								<div style="width: 100%;">
+									<div id="showform" style="padding: 10px;">
+										<div class="input-group input-group-sm mb-3" style="margin-top: -10px;">
+		                                    <div class="input-group-prepend">
+		                                        <span class="input-group-text" style="width: 79px;"><span style="width: 100%;">图片</span></span>
+		                                    </div>
+		                                    <img title="点击更换图片" id="IMG_URL" @click="chooseImg" src="../../../imgs/default.png" class="default_img"/>
+		                                    <input  type="file" accept="image/png,image/jpeg" id="img" style="display: none;">
+		                                </div>
+							            <div class="input-group input-group-sm mb-3" style="margin-top: -10px;">
+		                                    <div class="input-group-prepend">
+		                                        <span class="input-group-text" style="width: 79px;"><span style="width: 100%;">排序</span></span>
+		                                    </div>
+		                                    <input type="number" class="form-control" ref="SORT" id="SORT" v-model="pd.SORT" maxlength="2" placeholder="这里输入排序" title="排序">
+		                                </div>
+							            <div class="input-group" style="margin-top:10px;background-color: white" >
+							            	<span style="width: 100%;text-align: center;">
+							            		<a class="btn btn-light btn-sm" v-on:click="save">保存</a>
+							            		<a class="btn btn-light btn-sm" onclick="top.Dialog.close()">取消</a>
+							            	</span>
+							            </div>
+							       </div>
+						           <!-- [加载状态 ] start -->
+								    <div id="jiazai" style="display:none;margin-top:50px;">
+								    	<div class="d-flex justify-content-center">
+	                                        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+								    <!-- [ 加载状态  ] End -->
+								</div>
+	    
+                            </div>
+                            <!-- [ Main Content ] end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- [ 主内容区 ] end -->
+    
+<script type="text/javascript" src="../../../assets/js/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="../../../assets/js/pre-loader.js"></script>
+<script src="../../../assets/plugins/sweetalert/js/sweetalert.min.js"></script>
+
+<!-- 日期插件 -->
+<script src="../../../assets/js/pages/moment-with-locales.min.js"></script>
+<script src="../../../assets/plugins/material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+<script src="../../../assets/js/pages/form-picker-custom.js"></script>
+
+<!-- select插件 -->
+<script src="../../../assets/plugins/select2/js/select2.full.min.js"></script>
+<script src="../../../assets/plugins/multi-select/js/jquery.quicksearch.js"></script>
+<script src="../../../assets/plugins/multi-select/js/jquery.multi-select.js"></script>
+<script src="../../../assets/js/pages/form-select-custom.js"></script>
+
+<!-- 表单验证提示 -->
+<script src="../../../assets/js/jquery.tips.js"></script>
+
+<script type="text/javascript">
+
+var vm = new Vue({
+	el: '#app',
+	
+	data:{
+		formData:{},	//主键ID
+		pd: [],						//存放字段参数
+		msg:'add',
+		id:'',
+		url:'',
+		sort:'',
+		nginxurl:''
+    },
+	
+	methods: {
+		chooseImg:function(){
+			$("#img").trigger("click")
+		},
+        //初始执行
+        init() {
+        	var id = this.getUrlKey("id");
+        	this.nginxurl = nginxurl;
+        	if(id!=null){
+        		this.id = id;
+        		this.url = this.getUrlKey("url");
+        		this.sort = this.getUrlKey("sort")
+        		this.msg = 'edit'
+        		$("#IMG_URL").get(0).src=nginxurl+this.url;
+        		$("#SORT").val(this.sort)
+        	}
+        	$("#img").on("change",function() {
+        		console.log("hh")
+			    //获取文件对象，files是文件选取控件的属性，存储的是文件选取控件选取的文件对象，类型是一个数组
+			    var fileObj = $("#img").get(0).files[0];
+			    //创建formdata对象，formData用来存储表单的数据，表单数据时以键值对形式存储的。
+			    var formData = new FormData();
+			    formData.append('file', fileObj);
+			    vm.formData = formData;
+			    var reader = new FileReader();
+			    //使用该对象读取file文件
+			      reader.readAsDataURL(fileObj);
+			    //读取文件成功后执行的方法函数
+			      reader.onload=function(e){
+			    //读取成功后返回的一个参数e，整个的一个进度事件
+			    //选择所要显示图片的img，要赋值给img的src就是e中target下result里面
+			    //的base64编码格式的地址
+			        $('.default_img').get(0).src = e.target.result;
+			       }
+			});
+        	
+        },
+        
+        //去保存
+    	save: function (){
+    		
+			if($("#img").val()==''){
+				$("#IMG_URL").tips({
+					side:3,
+		            msg:'请选择图片',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+			return false;
+			}
+			if($("#SORT").val()==''){
+				$("#SORT").tips({
+					side:3,
+		            msg:'请输入排序',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				this.$refs.SORT.focus();
+			return false;
+			}
+			vm.formData.append("sort",$("#SORT").val())
+    		
+    		$("#showform").hide();
+    		$("#jiazai").show();
+    		
+    		if(vm.msg =="edit"){
+    			vm.formData.append("url",vm.url);
+    			vm.formData.append("id",vm.id);
+    		}
+    		
+            //发送 post 请求提交保存
+            $.ajax({
+	            	xhrFields: {
+	                    withCredentials: true
+	                },
+					type: "POST",
+					url: httpurl+'appbanner/'+this.msg,
+			    	data: vm.formData,
+			        async: false,
+			        cache: false,
+			        contentType: false,
+			        processData: false,
+					success: function(data){
+                        if("success" == data.result){
+                        	swal("", "保存成功", "success");
+                        	setTimeout(function(){
+                        		top.Dialog.close();//关闭弹窗
+                            },1000);
+                        }else if ("exception" == data.result){
+                        	showException("APP轮播图",data.exception);//显示异常
+                        	$("#showform").show();
+                    		$("#jiazai").hide();
+                        }
+                    }
+				}).done().fail(function(){
+                   swal("登录失效!", "请求服务器无响应，稍后再试", "warning");
+                   $("#showform").show();
+           		   $("#jiazai").hide();
+                });
+    	},
+    	
+    	//根据url参数名称获取参数值
+        getUrlKey: function (name) {
+            return decodeURIComponent(
+                (new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ""])[1].replace(/\+/g, '%20')) || null;
+        }
+        
+	},
+	
+	mounted(){
+        this.init();
+    }
+})
+				
+</script>
+
+</body>
+</html>

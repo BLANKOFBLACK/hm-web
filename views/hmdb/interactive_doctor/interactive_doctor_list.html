@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>家庭智慧医疗系统</title>
+    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+    <!-- Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="author" content="家庭智慧医疗系统" />
+
+    <link rel="icon" href="../../../assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../../../assets/fonts/material/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../../assets/fonts/fontawesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../../../assets/plugins/animation/css/animate.min.css">
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+
+    <!-- vue -->
+	<script src="../../../assets/js-vue/vue.js"></script>
+    <!--全局配置-->
+    <script src="../../../assets/js-v/config.js"></script>
+
+</head>
+
+<body>
+    
+    <!-- [加载状态 ] start -->
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <!-- [ 加载状态  ] End -->
+
+    <!-- [ 主内容区 ] start -->
+        <div class="pcoded-wrapper" id="app">
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <!-- [ Main Content ] start -->
+                            <div class="row">
+
+							    <!-- [ Hover-table ] start -->
+                                <div class="col-xl-12">
+                                    <div class="card">
+							
+									<!-- 检索  -->
+									<div style="padding-left: 20px;padding-top: 15px;">
+									<table style="margin-top:5px;">
+										<tr>
+											<td>
+						                        <div class="input-group input-group-sm mb-3">
+                                                	<input class="form-control" type="text" v-model="KEYWORDS" placeholder="这里输入关键词" />
+                                            	</div>
+											</td>
+                                            <td  style="vertical-align: top; padding-left: 2px;">
+                                                <select style="height: 31px" id="HOSPITAL" v-model="HOSPITAL" v-on:change="getDepartment">
+                                                    <option value="">请选择所属医院</option>
+                                                    <option v-for="item in hospitalList" :value="item.HOSPITAL_ID">{{item.HOSPITAL_NAME}}</option>
+                                                </select>
+                                            </td>
+                                            <td  style="vertical-align: top; padding-left: 2px;" v-show="HOSPITAL!=''">
+                                                <select style="height: 31px" id="DEPARTMENT" v-model="DEPARTMENT">
+                                                    <option>请选择所属科室</option>
+                                                    <option v-for="item in departmentList" :value="item.HOSPITALDEPARTMENT_ID">{{item.DEPARTMENT_NAME}}</option>
+                                                </select>
+                                            </td>
+											<td style="vertical-align:top;padding-left:5px;">
+												<a class="btn btn-light btn-sm" v-on:click="getList" style="width: 23px;height:30px;margin-top:1px;" title="检索"><i style="margin-top:-3px;margin-left: -6px;"  class="feather icon-search"></i></a>
+											</td>
+											<td v-show="loading">
+												<!-- [加载状态 ] start -->
+										    	<div class="d-flex justify-content-center" style="margin-top:-10px;">
+		                                            <div class="spinner-grow spinner-grow-sm" role="status">
+		                                                <span class="sr-only">Loading...</span>
+		                                            </div>
+		                                        </div>
+										    	<!-- [ 加载状态  ] End -->
+											</td>
+										</tr>
+									</table>
+									</div>
+									<!-- 检索  -->
+									<div class="card-block table-border-style" style="margin-top: -15px">
+                                    	<div class="table-responsive">
+                                        	<table class="table table-hover">
+												<thead>
+													<tr>
+														<th style="width: 50px;" id="cts">
+								                            <div class="checkbox d-inline">
+	                                                            <input type="checkbox" name="fhcheckbox" id="zcheckbox">
+	                                                            <label  style="max-height: 12px;" for="zcheckbox" class="cr"></label>
+	                                                        </div>
+														</th>
+														<th style="width:50px;">NO</th>
+														<th>姓名</th>
+														<th>性别</th>
+														<th>手机号</th>
+														<th>职称</th>
+														<th>所在医院</th>
+														<th>所在科室</th>
+														<th>签约用户</th>
+														<th>交互记录</th>
+													</tr>
+												</thead>
+																		
+												<tbody>
+													<!-- 开始循环 -->	
+													<template v-for="(data,index) in varList">
+														<tr>
+															<td>
+	                                                        	<div class="checkbox d-inline">
+	                                                            	<input type="checkbox" v-bind:id="'zcheckbox'+index" name='ids' v-bind:value="data.MEDICALSTAFF_ID">
+	                                                            	<label  style="max-height: 12px;" v-bind:for="'zcheckbox'+index" class="cr"></label>
+	                                                        	</div>
+															</td>
+															<td scope="row">{{page.showCount*(page.currentPage-1)+index+1}}</td>
+															<td>{{data.NAME}}</td>
+															<td>{{data.SEX}}</td>
+															<td>{{data.PHONE}}</td>
+															<td>{{data.POSITION}}</td>
+															<td>{{data.HOSPITAL_NAME}}</td>
+															<td>{{data.DEPARTMENT_NAME}}</td>
+															<td><a class="link" @click="goMemberList('info',data.MEDICALSTAFF_ID)">查看列表</a></td>
+															<td><a class="link" @click="goMemberList('message',data.MEDICALSTAFF_ID)">查看列表</a></td>
+														</tr>
+													</template>
+													<tr v-show="varList.length==0">
+														<td colspan="10">没有相关数据</td>
+													</tr>
+												</tbody>
+											</table>
+											<table style="width:100%;margin-top:15px;">
+												<tr>
+													<td style="vertical-align:top;"><div style="float: right;padding-top: 0px;margin-top: 0px;" v-html="page.pageStr"></div></td>
+												</tr>
+											</table>
+										</div>
+                                    </div>
+			
+                                    </div>
+                                </div>
+                                <!-- [ Hover-table ] end -->
+
+                            </div>
+                            <!-- [ Main Content ] end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- [ 主内容区 ] end -->
+    
+<script type="text/javascript" src="../../../assets/js/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="../../../assets/js/pre-loader.js"></script>
+<script src="../../../assets/plugins/sweetalert/js/sweetalert.min.js"></script>
+<!-- 表单验证提示 -->
+<script src="../../../assets/js/jquery.tips.js"></script>
+
+<script type="text/javascript">
+
+var vm = new Vue({
+	el: '#app',
+	
+	data:{
+		varList: [],	//list
+		page: [],		//分页类
+		KEYWORDS:'',	//检索条件,关键词
+        HOSPITAL:'',    //所属医院
+        DEPARTMENT:'请选择所属科室',  //所属部门
+        hospitalList:[],//医院列表
+        departmentList:[],//部门列表
+		showCount: -1,	//每页显示条数(这个是系统设置里面配置的，初始为-1即可，固定此写法)
+		currentPage: 1,	//当前页码
+		loading:false,	//加载状态
+    },
+    
+	methods: {
+		
+        //初始执行
+        init() {
+        	//复选框控制全选,全不选 
+    		$('#zcheckbox').click(function(){
+	    		 if($(this).is(':checked')){
+	    			 $("input[name='ids']").click();
+	    		 }else{
+	    			 $("input[name='ids']").attr("checked", false);
+	    		 }
+    		});
+    		this.getList();
+        },
+        goMemberList(type,id){
+        	var diag = new top.Dialog();
+    		 diag.Drag=true;
+    		 diag.Title ="签约用户列表";
+    		 diag.URL = '../../hmdb/interactive_doctor/interactive_memberlist.html?TYPE='+type+'&MEDICALSTAFF_ID='+id;
+    		 diag.Width = 650;
+    		 diag.Height = 600;
+    		 diag.Modal = true;				//有无遮罩窗口
+    		 diag. ShowMaxButton = true;	//最大化按钮
+    	     diag.ShowMinButton = true;		//最小化按钮 
+    		 diag.CancelEvent = function(){ //关闭事件
+    			 var varSon = diag.innerFrame.contentWindow.document.getElementById('showform');
+    			 if(varSon != null && varSon.style.display == 'none'){
+    				 vm.getList();
+    			}
+    			diag.close();
+    		 };
+    		 diag.show();
+        },
+        getDepartment:function(){
+        	if(vm.HOSPITAL==""){
+        		vm.DEPARTMENT=""
+        	}
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                type: "POST",
+                url: httpurl+'medicalstaff/getDepartment',
+                data: {HOSPITAL:vm.HOSPITAL},
+                dataType:"json",
+                success: function(data){
+                    if("success" == data.result){
+                        vm.departmentList = data.departmentList;
+                    }else if ("exception" == data.result){
+                        showException("科室信息",data.exception);//显示异常
+                        $("#showform").show();
+                        $("#jiazai").hide();
+                    }
+                }
+            }).done().fail(function(){
+               swal("登录失效!", "请求服务器无响应，稍后再试", "warning");
+               $("#showform").show();
+               $("#jiazai").hide();
+            });
+        },
+        
+        //获取列表
+        getList: function(){
+        	this.loading = true;
+            var that = this;
+        	$.ajax({
+        		xhrFields: {
+                    withCredentials: true
+                },
+        		type: "POST",
+        		url: httpurl+'contractedcare/listDoctor?showCount='+this.showCount+'&currentPage='+this.currentPage+'&ROLE_TYPE=医生',
+        		data: {KEYWORDS:this.KEYWORDS,tm:new Date().getTime(),HOSPITAL:this.HOSPITAL,DEPARTMENT:this.DEPARTMENT},
+        		dataType:"json",
+        		success: function(data){
+        		 if("success" == data.result){
+        			 vm.varList = data.varList;
+        			 vm.page = data.page;
+                     vm.hospitalList = data.hospitalList;
+        			 vm.loading = false;
+        			 $("input[name='ids']").attr("checked", false);
+        		 }else if ("exception" == data.result){
+                 	showException("医患交互",data.exception);//显示异常
+                 }
+        		}
+        	}).done().fail(function(){
+                swal("登录失效!", "请求服务器无响应，稍后再试", "warning");
+                setTimeout(function () {
+                	window.location.href = "../../login.html";
+                }, 2000);
+            });
+        },
+    	        
+        //-----分页必用----start
+        nextPage: function (page){
+        	this.currentPage = page;
+        	this.getList();
+        },
+        changeCount: function (value){
+        	this.showCount = value;
+        	this.getList();
+        },
+        toTZ: function (){
+        	var toPaggeVlue = document.getElementById("toGoPage").value;
+        	if(toPaggeVlue == ''){document.getElementById("toGoPage").value=1;return;}
+        	if(isNaN(Number(toPaggeVlue))){document.getElementById("toGoPage").value=1;return;}
+        	this.nextPage(toPaggeVlue);
+        },
+       //-----分页必用----end
+	},
+	
+	mounted(){
+        this.init();
+    }
+})
+		
+</script>
+
+</body>
+</html>

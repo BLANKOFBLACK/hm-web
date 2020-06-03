@@ -1,5 +1,5 @@
 /**
- * @FH Admin  
+ * @家庭智慧医疗系统  
  * QQ:313596790
  * 官网：www.fhadmin.org
 */	
@@ -672,7 +672,7 @@ function selectFa (CREATECODE_ID){
 	
 	
 /**
- * @FH Admin  
+ * @家庭智慧医疗系统  
  * QQ: 3 1 3 5 96 790
  * 官网：www.fhadmin.org
 */	

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>FH Admin</title>
+    <title>家庭智慧医疗系统</title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 10]>
@@ -12,7 +12,7 @@
     <!-- Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="author" content="FH Admin QQ313596790" />
+    <meta name="author" content="家庭智慧医疗系统" />
 
     <link rel="icon" href="../../../assets/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../../../assets/fonts/material/css/materialdesignicons.min.css">
@@ -24,7 +24,6 @@
 	<script src="../../../assets/js-vue/vue.js"></script>
     <!--全局配置-->
     <script src="../../../assets/js-v/config.js"></script>
-    
 </head>
 
 <body>
@@ -123,17 +122,18 @@
                                                             <td>{{data.SEX}}</td>
                                                             <td>{{data.AGE}}</td>
                                                             
-                                                            <td v-if="data.blood!=undefined" class="link" v-on:click="goSeeBlood(data.PATIENT_ID)">{{data.blood.sbp}}/{{data.blood.dbp}}</td>
-                                                            <td v-else class="link" v-on:click="goSeeBlood(data.PATIENT_ID)">暂无数据</td>
-                                                            <td v-if="data.heart!=undefined" class="link" v-on:click="goSeeHeart(data.PATIENT_ID)">{{data.heart.heartRate}}</td>
-                                                            <td v-else class="link" v-on:click="goSeeHeart(data.PATIENT_ID)">暂无数据</td>
-                                                            <td v-if="data.temperature!=undefined" class="link" v-on:click="goSeeTemperature(data.PATIENT_ID)">36.5</td>
-                                                            <td v-else class="link" v-on:click="goSeeTemperature(data.PATIENT_ID)">暂无数据</td>
-                                                            <td v-if="data.location!=undefined" class="link" v-on:click="goSeeLocation(data.PATIENT_ID)"><p v-bind:title="data.location">{{data.location.substring(0,9)}}...</p></td>
-                                                            <td v-else class="link" v-on:click="goSeeLocation(data.PATIENT_ID)"><p v-bind:title="data.location">暂无数据</p></td>
-                                                            <td v-if="data.heart!=undefined" class="link" v-on:click="goSeeStep(data.PATIENT_ID)">{{data.heart.stepNumber}}</td>
-                                                            <td v-else class="link" v-on:click="goSeeStep(data.PATIENT_ID)">暂无数据</td>
-                                                            <td class="link" v-on:click="goSeeSleep(data.PATIENT_ID)">浅度睡眠：6H23Min；深度睡眠：2H11Min</td>
+                                                            <td v-if="data.blood!=undefined" class="link" v-on:click="goSeeBlood(data.IMEI)">{{data.blood.sbp}}/{{data.blood.dbp}}</td>
+                                                            <td v-else>暂无数据</td>
+                                                            <td v-if="data.heart!=undefined" class="link" v-on:click="goSeeHeart(data.IMEI)">{{data.heart.heartRate}}</td>
+                                                            <td v-else>暂无数据</td>
+                                                            <td v-if="data.temperature!=undefined" class="link" v-on:click="goSeeTemperature(data.IMEI)">36.5</td>
+                                                            <td v-else>暂无数据</td>
+                                                            <td v-if="data.location!=undefined" class="link" v-on:click="goSeeLocation(data.location)"><span v-bind:title="data.location">{{data.location.substring(0,9)}}...</span></td>
+                                                            <td v-else class="link" v-on:click="goSeeLocation(data.location)"><span>暂无数据</span></td>
+                                                            <td v-if="data.heart!=undefined" class="link" v-on:click="goSeeStep(data.IMEI,data.heart.stepNumber)">{{data.heart.stepNumber}}</td>
+                                                            <td v-else>暂无数据</td>
+                                                            <td v-if="data.sleep!=undefined" class="link" v-on:click="goSeeSleep(data.IMEI)">浅睡:{{data.sleep.light}};深睡:{{data.sleep.deep}}</td>
+                                                            <td v-else>暂无数据</td>
 															<td>
 																<a v-show="edit" title="修改" v-on:click="goEdit(data.PATIENT_ID)" style="cursor:pointer;"><i class="feather icon-edit-2"></i></a>
 							                 					<a v-show="del" title="删除" v-on:click="goDel(data.PATIENT_ID)" style="cursor:pointer;"><i class="feather icon-x"></i></a>
@@ -208,17 +208,113 @@ var vm = new Vue({
         },
         
         //查看详细
-        goSeeDetail:function(history,idcard,birthday,province,city,district,imei){
-        	var homeaddress = province+"-"+city;
-        	if(district!=""||district!=undefined){
-        		homeaddress=homeaddress+"-"+district
-        	}
+        goSeeBlood:function(imei){
         	var diag = new top.Dialog();
     		 diag.Drag=true;
-    		 diag.Title ="详细信息";
-    		 diag.URL = '../../hmdb/patient/patient_detail.html?history='+history+'&idcard='+idcard+'&birthday='+birthday+'&homeaddress='+homeaddress+'&imei='+imei;
+    		 diag.Title ="血压";
+    		 diag.URL = '../../hmdb/healthdata/blood.html?imei='+imei;
+    		 diag.Width = 900;
+    		 diag.Height = 700;
+    		 diag.Modal = true;				//有无遮罩窗口
+    		 diag. ShowMaxButton = true;	//最大化按钮
+    	     diag.ShowMinButton = true;		//最小化按钮 
+    		 diag.CancelEvent = function(){ //关闭事件
+    	    	 var varSon = diag.innerFrame.contentWindow.document.getElementById('showform');
+    			 if(varSon != null && varSon.style.display == 'none'){
+    				 vm.getList();
+    			}
+    			diag.close();
+    		 };
+    		 diag.show();
+        },
+        //查看详细
+        goSeeHeart:function(imei){
+        	var diag = new top.Dialog();
+    		 diag.Drag=true;
+    		 diag.Title ="心率";
+    		 diag.URL = '../../hmdb/healthdata/heart.html?imei='+imei;
+    		 diag.Width = 900;
+    		 diag.Height = 700;
+    		 diag.Modal = true;				//有无遮罩窗口
+    		 diag. ShowMaxButton = true;	//最大化按钮
+    	     diag.ShowMinButton = true;		//最小化按钮 
+    		 diag.CancelEvent = function(){ //关闭事件
+    	    	 var varSon = diag.innerFrame.contentWindow.document.getElementById('showform');
+    			 if(varSon != null && varSon.style.display == 'none'){
+    				 vm.getList();
+    			}
+    			diag.close();
+    		 };
+    		 diag.show();
+        },
+        //查看详细
+        goSeeTemperature:function(imei){
+        	var diag = new top.Dialog();
+    		 diag.Drag=true;
+    		 diag.Title ="体温";
+    		 diag.URL = '../../hmdb/healthdata/temperature.html?imei='+imei;
     		 diag.Width = 500;
     		 diag.Height = 500;
+    		 diag.Modal = true;				//有无遮罩窗口
+    		 diag. ShowMaxButton = true;	//最大化按钮
+    	     diag.ShowMinButton = true;		//最小化按钮 
+    		 diag.CancelEvent = function(){ //关闭事件
+    	    	 var varSon = diag.innerFrame.contentWindow.document.getElementById('showform');
+    			 if(varSon != null && varSon.style.display == 'none'){
+    				 vm.getList();
+    			}
+    			diag.close();
+    		 };
+    		 diag.show();
+        },
+        //查看详细
+        goSeeLocation:function(location){
+        	var diag = new top.Dialog();
+    		 diag.Drag=true;
+    		 diag.Title ="位置";
+    		 diag.URL = '../../hmdb/healthdata/location.html?location='+location;
+    		 diag.Width = 600;
+    		 diag.Height = 500;
+    		 diag.Modal = true;				//有无遮罩窗口
+    		 diag. ShowMaxButton = true;	//最大化按钮
+    	     diag.ShowMinButton = true;		//最小化按钮 
+    		 diag.CancelEvent = function(){ //关闭事件
+    	    	 var varSon = diag.innerFrame.contentWindow.document.getElementById('showform');
+    			 if(varSon != null && varSon.style.display == 'none'){
+    				 vm.getList();
+    			}
+    			diag.close();
+    		 };
+    		 diag.show();
+        },
+        //查看详细
+        goSeeStep:function(imei,step){
+        	var diag = new top.Dialog();
+    		 diag.Drag=true;
+    		 diag.Title ="步数";
+    		 diag.URL = '../../hmdb/healthdata/step.html?imei='+imei+'&step='+step;
+    		 diag.Width = 900;
+    		 diag.Height = 700;
+    		 diag.Modal = true;				//有无遮罩窗口
+    		 diag. ShowMaxButton = true;	//最大化按钮
+    	     diag.ShowMinButton = true;		//最小化按钮 
+    		 diag.CancelEvent = function(){ //关闭事件
+    	    	 var varSon = diag.innerFrame.contentWindow.document.getElementById('showform');
+    			 if(varSon != null && varSon.style.display == 'none'){
+    				 vm.getList();
+    			}
+    			diag.close();
+    		 };
+    		 diag.show();
+        },
+        //查看详细
+        goSeeSleep:function(imei){
+        	var diag = new top.Dialog();
+    		 diag.Drag=true;
+    		 diag.Title ="睡眠";
+    		 diag.URL = '../../hmdb/healthdata/sleep.html?imei='+imei
+    		 diag.Width = 600;
+    		 diag.Height = 630;
     		 diag.Modal = true;				//有无遮罩窗口
     		 diag. ShowMaxButton = true;	//最大化按钮
     	     diag.ShowMinButton = true;		//最小化按钮 
@@ -246,7 +342,6 @@ var vm = new Vue({
         		success: function(data){
         		 if("success" == data.result){
         			 vm.varList = data.varList;
-        			 console.log(vm.varList)
         			 vm.page = data.page;
         			 vm.hasButton();
         			 vm.loading = false;
@@ -327,6 +422,8 @@ var vm = new Vue({
             			success: function(data){
             				 if("success" == data.result){
             					 swal("删除成功", "已经从列表中删除!", "success");
+            				 }else{
+            				 	swal("删除失败","请检查该健康用户是否已签约","error");
             				 }
             				 vm.getList();
             			}
@@ -375,7 +472,9 @@ var vm = new Vue({
     							success: function(data){
     								if("success" == data.result){
     									swal("删除成功", "已经从列表中删除!", "success");
-    		        				 }
+    		        				 }else{
+		            				 	swal("删除失败","请检查所选健康用户是否已签约","error");
+		            				 }
     								vm.getList();
     							}
     						});

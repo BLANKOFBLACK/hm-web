@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>家庭智慧医疗系统</title>
+    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    <!-- Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="author" content="家庭智慧医疗系统" />
+
+    <link rel="icon" href="../../../assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../../../assets/fonts/material/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../../assets/fonts/fontawesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../../../assets/plugins/animation/css/animate.min.css">
+    <link rel="stylesheet" href="../../../assets/css/style.css">
+
+    <!-- vue -->
+    <script src="../../../assets/js-vue/vue.js"></script>
+    <!--全局配置-->
+    <script src="../../../assets/js-v/config.js"></script>
+	<style>
+		tr:nth-child(odd){
+			height: 26px;
+			color: #000000;
+			font-weight: bold;
+		}
+	</style>
+</head>
+
+<body>
+    
+    <!-- [加载状态 ] start -->
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <!-- [ 加载状态  ] End -->
+
+    <!-- [ 主内容区 ] start -->
+        <div class="pcoded-wrapper" id="app">
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <!-- [ Main Content ] start -->
+                            <div class="row">
+
+                                <!-- [ Hover-table ] start -->
+                                <div class="col-xl-12">
+                                    <div class="card">
+                            			<div style="padding:15px;">
+                            				<table>
+                            					<tbody>
+                            						<tr>
+                            							<td>姓名</td> 
+                            						</tr>
+                            						<tr>
+                            							<td>{{user.NAME!=''?user.NAME:'暂无数据'}}</td>
+                            						</tr>
+                            						<tr style="height: 26px;">
+                            							<td>性别</td> 
+                            						</tr>
+                            						<tr>
+                            							<td>{{user.SEX!=''?user.SEX:'暂无数据'}}</td>
+                            						</tr>
+                            						<tr style="height: 26px;">
+                            							<td>年龄</td> 
+                            						</tr>
+                            						<tr>
+                            							<td>{{user.AGE!=''?user.AGE:'暂无数据'}}</td>
+                            						</tr>
+                            						<tr style="height: 26px;">
+                            							<td>生日</td> 
+                            						</tr>
+                            						<tr>
+                            							<td>{{user.BIRTHDAY!=''?user.BIRTHDAY:'暂无数据'}}</td>
+                            						</tr>
+                            						<tr style="height: 26px;">
+                            							<td>手机号</td> 
+                            						</tr>
+                            						<tr>
+                            							<td>{{user.PHONE!=''?user.PHONE:'暂无数据'}}</td>
+                            						</tr>
+                            						<tr style="height: 26px;">
+                            							<td>身份证号</td> 
+                            						</tr>
+                            						<tr>
+                            							<td>{{user.ID_CARD!=''?user.ID_CARD:'暂无数据'}}</td>
+                            						</tr>
+                            						<tr style="height: 26px;">
+                            							<td>家庭住址</td> 
+                            						</tr>
+                            						<tr>
+                            							<td>{{user.PROVINCE}}-{{user.CITY}}-{{user.DISTRICT}}</td>
+                            						</tr>
+                            						<tr style="height: 26px;">
+                            							<td>既往病史</td> 
+                            						</tr>
+                            						<tr>
+                            							<td>{{user.PAST_HISTORY!=''?user.PAST_HISTORY:'暂无数据'}}</td>
+                            						</tr>
+                            						<tr style="height: 26px;">
+                            							<td>绑定设备号</td> 
+                            						</tr>
+                            						<tr>
+                            							<td>{{user.IMEI!=''?user.IMEI:'暂无数据'}}</td>
+                            						</tr>
+                            					</tbody>
+                            				</table>
+                            			</div>
+                                    </div>
+                                </div>
+                                <!-- [ Hover-table ] end -->
+
+                            </div>
+                            <!-- [ Main Content ] end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- [ 主内容区 ] end -->
+    
+<script type="text/javascript" src="../../../assets/js/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="../../../assets/js/pre-loader.js"></script>
+<script src="../../../assets/plugins/sweetalert/js/sweetalert.min.js"></script>
+<!-- 表单验证提示 -->
+<script src="../../../assets/js/jquery.tips.js"></script>
+
+<script type="text/javascript">
+var that;
+var vm = new Vue({
+    el: '#app',
+    
+    data:{
+        user:{},
+        PATIENT_ID:''
+    },
+    
+    methods: {
+        //初始执行
+        init() {
+            this.loading = true;
+            this.PATIENT_ID = this.getUrlKey("PATIENT_ID")
+        	$.ajax({
+        		xhrFields: {
+                    withCredentials: true
+                },
+        		type: "POST",
+        		url: httpurl+'patient/goEdit',
+        		data: {PATIENT_ID:this.PATIENT_ID,tm:new Date().getTime()},
+        		dataType:"json",
+        		success: function(data){
+        		 if("success" == data.result){
+        			 vm.user = data.pd;
+        			 vm.loading = false;
+        		 }else if ("exception" == data.result){
+                 	showException("用户信息",data.exception);//显示异常
+                 }
+        		}
+        	}).done().fail(function(){
+                swal("登录失效!", "请求服务器无响应，稍后再试", "warning");
+                setTimeout(function () {
+                	window.location.href = "../../login.html";
+                }, 2000);
+            });
+        },
+        //根据url参数名称获取参数值
+        getUrlKey: function (name) {
+            return decodeURIComponent(
+                (new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ""])[1].replace(/\+/g, '%20')) || null;
+        }
+        
+       
+    },
+    
+    mounted(){
+        this.init();
+    }
+})
+        
+</script>
+
+</body>
+</html>

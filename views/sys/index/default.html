@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>FH Admin</title>
+    <title>家庭智慧医疗系统</title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 10]>
@@ -12,13 +12,105 @@
     <!-- Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="author" content="FH Admin QQ313596790" />
+    <meta name="author" content="家庭智慧医疗系统" />
 
     <link rel="icon" href="../../../assets/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../../../assets/fonts/fontawesome/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="../../../assets/plugins/animation/css/animate.min.css">
     <link rel="stylesheet" href="../../../assets/css/style.css">
-
+	<style>
+		.dashboard-stats {
+		    float: left;
+		    width: 25%;
+		}
+		.dashboard-stats-item {
+		    position: relative;
+		    overflow: hidden;
+		    color: #fff;
+		    cursor: pointer;
+		    height: 100px;
+		    margin-right: 10px;
+		    margin-bottom: 10px;
+		    padding-left: 15px;
+		    padding-top: 10px;
+		    border-radius: 5px;
+		}
+		.dashboard-stats-item .stat-icon {
+		    position: absolute;
+		    top: 8px;
+		    font-size: 40px;
+		    opacity: .3;
+		}
+		.dashboard-stats-item h2 {
+			color: white;
+		    font-size: 28px;
+		    font-family: inherit;
+		    line-height: 1.1;
+		    font-weight: 500;
+		    padding-left: 70px;
+		}
+		.dashboard-stats-item h5 {
+			color: white!important;
+		    font-size: 14px;
+		    font-family: inherit;
+		    margin-top: 1px;
+		    line-height: 1.1;
+		    padding-left: 70px;
+		}
+		.panel-default {
+		    border: none;
+		    border-radius: 0px;
+		    margin-bottom: 0px;
+		    box-shadow: none;
+		    -webkit-box-shadow: none;
+		}
+		.panel-default>.panel-heading {
+		    color: #777;
+		    background-color: #fff;
+		    border-color: #e6e6e6;
+		    padding: 10px 10px;
+		}
+		.panel-heading {
+		    padding: 10px 15px;
+		    border-bottom: 1px solid transparent;
+		    border-top-right-radius: 3px;
+		    border-top-left-radius: 3px;
+		}
+		.panel-default>.panel-body {
+		    padding: 10px;
+		    padding-bottom: 0px;
+		}
+		.panel-default>.panel-body ul {
+		    overflow: hidden;
+		    padding: 0;
+		    margin: 0px;
+		    margin-top: -5px;
+		}
+		.panel-default>.panel-body ul li {
+		    line-height: 27px;
+		    list-style-type: none;
+		    white-space: nowrap;
+		    text-overflow: ellipsis;
+		}
+		a {
+		    color: #337ab7!important;
+		    text-decoration: none;
+		    cursor: pointer;
+		}
+		a:hover{
+			text-decoration: underline!important;
+		}
+		.panel-default>.panel-body ul li .time {
+		    color: #a1a1a1;
+		    float: right;
+		    padding-right: 5px;
+		}
+		.border{
+			border: 1px solid #e6e6e6;
+			border-radius: 5px;
+			padding-top: 15px;
+		}
+	</style>
 </head>
 
 <body>
@@ -42,8 +134,164 @@
                                 <div class="col-sm-12">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h4>欢迎使用 FH Admin 系统	</h4>
-        									<h6>QQ：313596790  &nbsp; 官网： <a href="http://www.fhadmin.org">www.fhadmin.org</a></h6>
+                                            <div class="rows" style="margin-bottom: 0.8%; overflow: hidden;">
+												<div style="float: left; width: 99.2%;">
+													<div style="height: 100%;overflow: hidden;">
+														<div class="dashboard-stats">
+															<div class="dashboard-stats-item" style="background-color: #00CC99">
+																<h2 class="m-top-none">9</h2>
+																<h5>后台用户数</h5>
+																<div class="stat-icon">
+																	<i class="fa fa-user"></i>
+																</div>
+															</div>
+														</div>
+														<div class="dashboard-stats">
+															<div class="dashboard-stats-item" style="background-color: #999999;">
+																<h2 class="m-top-none">397</h2>
+																<h5>APP用户数</h5>
+																<div class="stat-icon">
+																	<i class="fa fa-user-circle"></i>
+																</div>
+															</div>
+														</div>
+														<div class="dashboard-stats">
+															<div class="dashboard-stats-item" style="background-color: #99CCCC">
+																<h2 class="m-top-none">25</h2>
+																<h5>医生总数</h5>
+																<div class="stat-icon">
+																	<i class="fa fa-user-md"></i>
+																</div>
+															</div>
+														</div>
+														<div class="dashboard-stats">
+															<div class="dashboard-stats-item" style="background-color:#00CCFF;">
+																<div class="stat-icon">
+																	<i class="fa fa-handshake"></i>
+																</div>
+																<h2 class="m-top-none">46</h2>
+																<h5>护士总数</h5>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="rows" style="margin-bottom: 0.8%; overflow: hidden;">
+									            <div style="float: left; width: 99.2%;">
+									                <div style="height: 100%;overflow: hidden;">
+									                	 <div class="dashboard-stats">
+									                        <div class="dashboard-stats-item" style="background-color: #FFCCCC; margin-bottom: 0px;">
+									                            <h2 class="m-top-none">2</h2>
+									                            <h5>医院总数</h5>
+									                            <div class="stat-icon">
+									                                <i class="fa fa-hospital"></i>
+									                            </div>
+									                        </div>
+									                    </div>
+									                    <div class="dashboard-stats">
+															<div class="dashboard-stats-item" style="background-color:#6699FF">
+																<h2 class="m-top-none">95</h2>
+																<h5>科室总数</h5>
+																<div class="stat-icon">
+																	<i class="fa fa-hospital-symbol"></i>
+																</div>
+															</div>
+														</div>
+									                    <div class="dashboard-stats">
+									                        <div class="dashboard-stats-item" style="background-color: #CC9999 ">
+									                            <h2 class="m-top-none">103</h2>
+									                            <h5>预警总计</h5>
+									                            <div class="stat-icon">
+									                                <i class="fa fa-bell"></i>
+									                            </div>
+									                        </div>
+									                    </div>
+									                    <div class="dashboard-stats">
+									                        <div class="dashboard-stats-item" style="background-color:#FF9999; margin-bottom: 0px;">
+									                            <h2 class="m-top-none">158640</h2>
+									                            <h5>健康数据总计</h5>
+									                            <div class="stat-icon">
+									                                <i class="fa fa-database"></i>
+									                            </div>
+									                        </div>
+									                    </div>
+									                   
+									                </div>
+									            </div>
+									        </div>	
+									        <div style="display: flex;margin:20px 0">
+									        	<div class="border" style="height:710px;width:52%;margin-right: 10px;" id="echarts-map-chart"></div>
+									        	<div style="width: 46%;">
+									        		<div class="border" id="age" style="height:350px;margin: 0 auto;" ></div>
+									        		<div class="border" id="flow" style="height:350px;margin: 0 auto;margin-top:10px"></div>
+									        	</div>
+									        </div>
+									        <div style="float: left; width: 49.0%; margin-right: 0.8%;">
+												<div style="margin: 20px 0; border: 1px solid #e6e6e6; border-radius:5px;background-color: #fff;">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<i class="fa fa-list fa-lg" style="padding-right: 5px;"></i>最新预警信息<span class="time" style="float:right;">预警时间</span>
+														</div>
+														<div class="panel-body">
+															<ul>
+																
+																	<li><a target="_blank"> -- 手表离线预警——朱香秀</a><span class="time">2020-06-02 16:23:28</span></li>
+																
+																	<li><a target="_blank"> -- 心率预警——彭光桃</a><span class="time">2020-06-02 16:16:29</span></li>
+																
+																	<li><a target="_blank"> -- 血压预警——吕红燕</a><span class="time">2020-06-02 16:15:14</span></li>
+																
+																	<li><a target="_blank"> -- 摔倒预警——韩娴</a><span class="time">2020-06-02 16:13:42</span></li>
+																
+																	<li><a target="_blank"> -- 超出电子围栏预警——赵花娥</a><span class="time">2020-06-02 16:04:33</span></li>
+																
+																	<li><a target="_blank"> -- 血压预警——尤黛</a><span class="time">2020-06-02 16:04:01</span></li>
+																
+																	<li><a target="_blank"> -- 血压预警——朱香秀</a><span class="time">2020-06-02 16:03:22</span></li>
+																
+																	<li><a target="_blank"> -- 心率预警——胥采绿</a><span class="time">2020-06-02 16:02:50</span></li>
+																
+																	<li><a target="_blank"> -- 体温预警——蒋娟</a><span class="time">2020-06-02 16:02:13</span></li>
+																
+																	<li><a target="_blank"> -- 心率预警——金花娥</a><span class="time">2020-06-02 16:01:39</span></li>
+																
+															</ul>
+														</div>
+													</div>
+												</div>
+											</div>
+									        <div style="float: left; width: 49.0%; margin-right: 0.8%;">
+												<div style="margin: 20px 0; border: 1px solid #e6e6e6; border-radius:5px;background-color: #fff;">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<i class="fa fa-list fa-lg" style="padding-right: 5px;"></i>最新加入健康用户<span class="time" style="float:right;">加入时间</span>
+														</div>
+														<div class="panel-body">
+															<ul>
+																	<li><a target="_blank"> -- 陶秀芳</a><span class="time">2020-06-02 16:23:28</span></li>
+																
+																	<li><a target="_blank"> -- 孔梅梅</a><span class="time">2020-06-02 16:16:29</span></li>
+
+																	<li><a target="_blank"> -- 钱雁</a><span class="time">2020-06-02 16:15:14</span></li>
+																
+																	<li><a target="_blank"> -- 吴丽丽</a><span class="time">2020-06-02 16:13:42</span></li>
+																
+																	<li><a target="_blank"> -- 张彩霞</a><span class="time">2020-06-02 16:04:33</span></li>
+																
+																	<li><a target="_blank"> -- 戚子彤</a><span class="time">2020-06-02 16:04:01</span></li>
+																
+																	<li><a target="_blank"> -- 朱香秀</a><span class="time">2020-06-02 16:03:22</span></li>
+																
+																	<li><a target="_blank"> -- 华半芹</a><span class="time">2020-06-02 16:02:50</span></li>
+																
+																	<li><a target="_blank"> -- 华菜玲</a><span class="time">2020-06-02 16:02:13</span></li>
+																
+																	<li><a target="_blank"> -- 赵明艳</a><span class="time">2020-06-02 16:01:39</span></li>
+															</ul>
+														</div>
+													</div>
+												</div>
+											</div>
                                         </div>
                                     </div>
                                 </div>
@@ -55,8 +303,217 @@
             </div>
         </div>
     <!-- [ 主内容区 ] end -->
-    
+    <!--echarts-->
+
+<script src="../../../assets/plugins/echarts/js/echarts.min.js"></script>
+    <script src="../../../assets/plugins/echarts/js/china.js"></script>
+
 <script type="text/javascript" src="../../../assets/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="../../../assets/js/pre-loader.js"></script>
+<script>
+	ageInit();
+	flowInit();
+	mapInit();
+
+	//地图
+	function flowInit(){
+		// 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('flow'));
+		var base = +new Date(2020, 5, 20);
+		var oneDay = 24 * 3600 * 1000;
+		var date = [];
+		
+		var data = [Math.random() * 300];
+		
+		for (var i = 1; i < 200; i++) {
+		    var now = new Date(base += oneDay);
+		    date.push([now.getFullYear(), now.getMonth(), now.getDate()+1].join('/'));
+		    data.push(Math.abs(Math.round((Math.random() - 0.5) * 20 + data[i - 1])) );
+		}
+		
+		option = {
+		    tooltip: {
+		        trigger: 'axis',
+		        position: function (pt) {
+		            return [pt[0], '10%'];
+		        }
+		    },
+		    title: {
+		        x: 'center',
+		        text: '日健康数据上传流量图',
+		    },
+		    xAxis: {
+		        type: 'category',
+		        boundaryGap: false,
+		        data: date
+		    },
+		    yAxis: {
+		        type: 'value'
+		    },
+		    series: [
+		        {
+		            name: '模拟数据',
+		            type: 'line',
+		            smooth: true,
+		            symbol: 'none',
+		            sampling: 'average',
+		            itemStyle: {
+		                color: 'rgb(255, 70, 131)'
+		            },
+		            areaStyle: {},
+		            data: data
+		        }
+		    ]
+		};
+
+        myChart.setOption(option)
+        $(window).resize(myChart.resize)
+	}
+	function ageInit(){
+		option = {
+			title: {
+                text: "健康用户年龄分布情况图",
+                x: "center"
+            },
+            tooltip : {
+		        trigger: 'axis',
+		        axisPointer: {
+		          type: 'cross',
+		          label: {
+		            backgroundColor: '#6a7985'
+		          }
+		        }
+		    },
+		    xAxis: {
+		        type: 'category',
+		        data: ['10岁以下','10岁~20岁', '20岁~30岁', '30岁~40岁', '40岁~50岁', '50岁~60岁', '70岁以上']
+		    },
+		    yAxis: {
+		        type: 'value'
+		    },
+		    series: [{
+		        data: [24, 54, 150, 178, 169, 110, 130],
+		        type: 'bar'
+		    }]
+		};
+		var myChart = echarts.init(document.getElementById('age'));
+        myChart.setOption(option)
+        $(window).resize(myChart.resize)
+	}
+    function mapInit() {
+    	var data = [{"num":0,"name":"北京"},{"num":5,"name":"安徽"},{"num":1,"name":"福建"},{"num":2,"name":"甘肃"},{"num":2,"name":"广东"},{"num":4,"name":"广西"},{"num":2,"name":"贵州"},{"num":1,"name":"海南"},{"num":1,"name":"河北"},{"num":2,"name":"河南"},{"num":2,"name":"黑龙江"},{"num":3,"name":"湖北"},{"num":0,"name":"湖南"},{"num":0,"name":"吉林"},{"num":2,"name":"江苏"},{"num":5,"name":"江西"},{"num":2,"name":"辽宁"},{"num":2,"name":"内蒙古"},{"num":2,"name":"宁夏"},{"num":2,"name":"青海"},{"num":1,"name":"山东"},{"num":3,"name":"山西"},{"num":2,"name":"陕西"},{"num":6,"name":"上海"},{"num":1,"name":"四川"},{"num":3,"name":"天津"},{"num":2,"name":"西藏"},{"num":3,"name":"新疆"},{"num":1,"name":"云南"},{"num":3,"name":"浙江"},{"num":1,"name":"重庆"},{"num":2,"name":"香港"},{"num":4,"name":"澳门"},{"num":5,"name":"台湾"}];	    
+		var arr=[];
+	    var max = 0;
+	    for (var i = 0; i < data.length; i++) {
+	        if(data[i].num>max){
+	            max = data[i].num;
+	        }
+	        var obj={
+	            name:data[i].name,
+	            value:data[i].num
+	        }
+	        arr.push(obj)
+	    }
+        var s = echarts.init(document.getElementById("echarts-map-chart")),
+            c = {
+                title: {
+                    text: "健康用户地域分布情况图",
+                    x: "center"
+                },
+                tooltip: { trigger: "item" },
+                legend: { orient: "vertical", x: "left", data: ["人数"] },
+//              toolbox: {
+//                  show: !0,
+//                  orient: "vertical",
+//                  x: "right",
+//                  y: "center",
+//                  feature: {
+//                      mark: { show: !0 },
+//                      dataView: { show: !0, readOnly: !1 },
+//                      restore: { show: !0 },
+//                      saveAsImage: { show: !0 }
+//                  }
+//              },
+		        dataRange: {
+		            min: 0,
+		            max: max,
+		            x: "left",
+		            y: "bottom",
+		            text: ["多", "少"],
+		            calculable: !0
+		        },
+		        series: [{
+		            name: "人数",
+		            type: "map",
+		            mapType: "china",
+		            roam: !1,
+		            itemStyle: {
+		                normal: { label: { show: !0 } },
+		                emphasis: { label: { show: !0 } }
+		            },
+		            data: arr
+		        }]
+               
+            };
+        s.setOption(c), $(window).resize(s.resize);
+//      s.showLoading();
+//      $.ajax({
+//          type: "post",
+//          async: true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+//          url: "/system/getMapStatistics",
+//          data:{
+//              year:curYear
+//          },
+//          dataType: "json",        //返回数据形式为json
+//          success: function (res) {
+//              //请求成功时执行该函数内容，res即为服务器返回的json对象
+//              if (res.code == 1) {
+//                  var data = res.result;
+//                  var arr=[];
+//                  var max = 0;
+//                  for (var i = 0; i < data.length; i++) {
+//                      if(data[i].num>max){
+//                          max = data[i].num;
+//                      }
+//                      var obj={
+//                          name:data[i].name,
+//                          value:data[i].num
+//                      }
+//                      arr.push(obj)
+//                  }
+//                  s.setOption({        //加载数据图表
+//                      dataRange: {
+//                          min: 0,
+//                          max: max,
+//                          x: "left",
+//                          y: "bottom",
+//                          text: ["多", "少"],
+//                          calculable: !0
+//                      },
+//                      series: [{
+//                          name: "人数",
+//                          type: "map",
+//                          mapType: "china",
+//                          roam: !1,
+//                          itemStyle: {
+//                              normal: { label: { show: !0 } },
+//                              emphasis: { label: { show: !0 } }
+//                          },
+//                          data: arr
+//                      }]
+//                  });
+//                  s.hideLoading();    //隐藏加载动画
+//              }
+//              else{
+//                  s.hideLoading();    //隐藏加载动画
+//              }
+//          },
+//          fail:function (res) {
+//              toastr.error("Error")
+//          }
+//      })
+		
+    }
+</script>
 </body>
 </html>
